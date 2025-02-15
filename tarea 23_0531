@@ -19,20 +19,24 @@ class UserManager:
 def user_manager():
     return UserManager()
 
-def test_add_user_success(user_manager: UserManager):
+def test_add_user_success(user_manager):
     user_manager.add_user("Alice")
-    assert "Alice" in user_manager.users
+    assert "Alice" in user_manager.users, "Error: El usuario Alice no se agregó correctamente."
+    print("Test para agregar usuario exitoso pasó correctamente.")
 
-def test_add_user_failure(user_manager: UserManager):
+def test_add_user_failure(user_manager):
     user_manager.add_user("Bob")
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="User already exists"):
         user_manager.add_user("Bob")
+    print("Test para agregar usuario fallido pasó correctamente.")
 
-def test_remove_user_success(user_manager: UserManager):
+def test_remove_user_success(user_manager):
     user_manager.add_user("Charlie")
     user_manager.remove_user("Charlie")
-    assert "Charlie" not in user_manager.users
+    assert "Charlie" not in user_manager.users, "Error: El usuario Charlie no se eliminó correctamente."
+    print("Test para eliminar usuario exitoso pasó correctamente.")
 
-def test_remove_user_failure(user_manager: UserManager):
-    with pytest.raises(ValueError):
+def test_remove_user_failure(user_manager):
+    with pytest.raises(ValueError, match="User does not exist"):
         user_manager.remove_user("Dave")
+    print("Test para eliminar usuario fallido pasó correctamente.")
