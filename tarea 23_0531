@@ -1,0 +1,38 @@
+# test_users.py
+import pytest
+
+class UserManager:
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, name):
+        if name in self.users:
+            raise ValueError("User already exists")
+        self.users[name] = True
+
+    def remove_user(self, name):
+        if name not in self.users:
+            raise ValueError("User does not exist")
+        del self.users[name]
+
+@pytest.fixture
+def user_manager():
+    return UserManager()
+
+def test_add_user_success(user_manager: UserManager):
+    user_manager.add_user("Alice")
+    assert "Alice" in user_manager.users
+
+def test_add_user_failure(user_manager: UserManager):
+    user_manager.add_user("Bob")
+    with pytest.raises(ValueError):
+        user_manager.add_user("Bob")
+
+def test_remove_user_success(user_manager: UserManager):
+    user_manager.add_user("Charlie")
+    user_manager.remove_user("Charlie")
+    assert "Charlie" not in user_manager.users
+
+def test_remove_user_failure(user_manager: UserManager):
+    with pytest.raises(ValueError):
+        user_manager.remove_user("Dave")
