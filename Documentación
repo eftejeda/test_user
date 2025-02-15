@@ -1,0 +1,7 @@
+test_add_user_success: Verifica que un usuario se agrega correctamente.
+
+test_add_user_failure: Verifica que no se puede agregar un usuario con un nombre existente.
+
+test_remove_user_success: Verifica que un usuario se elimina correctamente.
+
+test_remove_user_failure: Verifica que no se puede eliminar un usuario que no existe.
